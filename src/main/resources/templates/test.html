@@ -1,7 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><title>Test</title></head>
-<body>
-<h1 th:text="${message}">Message</h1>
+<head>
+    <title>💞Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="relative bg-gradient-to-br
+             from-pink-200 via-rose-300 to-fuchsia-400
+             min-h-screen flex items-center justify-center overflow-hidden">
+
+<!-- Decorative Glow -->
+<div class="absolute w-96 h-96 bg-pink-300/40 rounded-full blur-3xl top-10 left-10"></div>
+<div class="absolute w-96 h-96 bg-fuchsia-400/40 rounded-full blur-3xl bottom-10 right-10"></div>
+
+<!-- Card -->
+<div class="relative bg-white/85 backdrop-blur-xl
+            rounded-3xl shadow-2xl
+            px-20 py-16 text-center
+            border-l-8 border-pink-400
+            hover:scale-105 transform transition duration-500">
+
+    <!-- Accent Line -->
+    <div class="w-24 h-1 bg-gradient-to-r
+                from-pink-500 to-fuchsia-500
+                mx-auto mb-8 rounded-full"></div>
+
+    <!-- Message -->
+    <h1 th:text="${message}"
+        class="text-5xl md:text-6xl font-extrabold
+               bg-gradient-to-r from-pink-500 to-fuchsia-600
+               bg-clip-text text-transparent tracking-wide">
+        Message
+    </h1>
+
+    <p class="mt-6 text-pink-400 text-lg">
+        ✨ Dynamic Message Display
+    </p>
+
+</div>
+
 </body>
 </html>

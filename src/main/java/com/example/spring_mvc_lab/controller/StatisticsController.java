@@ -1,58 +1,65 @@
 package com.example.spring_mvc_lab.controller;
 
 import com.example.spring_mvc_lab.model.Product;
-import org.springframework.stereotype.Service;
+import com.example.spring_mvc_lab.service.ProductService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
-@Service
+@Controller
 public class StatisticsController {
 
-    private final List<Product> products = new ArrayList<>();
+    private final ProductService productService;
 
-    public StatisticsController() {
-        products.add(new Product(1L, "Laptop ASUS", "Elektronik", 12500000, 5));
-        products.add(new Product(2L, "Mouse Logitech", "Elektronik", 350000, 50));
-        products.add(new Product(3L, "Buku Java", "Buku", 150000, 8));
-        products.add(new Product(4L, "Keyboard", "Elektronik", 500000, 12));
+    public StatisticsController(ProductService productService) {
+        this.productService = productService;
     }
 
-    public List<Product> findAll() {
-        return products;
-    }
+    @GetMapping("/statistics")
+    public String showStatistics(Model model) {
 
+        List<Product> products = productService.findAll(); // ✅ BENAR
 
-    public Map<String, Long> countByCategory() {
-        return products.stream()
+        model.addAttribute("title", "Statistik Produk");
+        model.addAttribute("totalProducts", products.size());
+
+        Map<String, Long> totalPerCategory = products.stream()
                 .collect(Collectors.groupingBy(
                         Product::getCategory,
-                        Collectors.counting()
-                ));
-    }
+                        Collectors.counting()));
 
-    public Product getMostExpensive() {
-        return products.stream()
-                .max(Comparator.comparingDouble(Product::getPrice))
+        model.addAttribute("totalPerCategory", totalPerCategory);
+
+        Product mostExpensive = products.stream()
+                .max(Comparator.comparing(Product::getPrice))
                 .orElse(null);
-    }
 
-    public Product getCheapest() {
-        return products.stream()
-                .min(Comparator.comparingDouble(Product::getPrice))
+        model.addAttribute("mostExpensive", mostExpensive);
+
+        Product cheapest = products.stream()
+                .min(Comparator.comparing(Product::getPrice))
                 .orElse(null);
-    }
 
-    public double getAveragePrice() {
-        return products.stream()
+        model.addAttribute("cheapest", cheapest);
+
+        double avg = products.stream()
                 .mapToDouble(Product::getPrice)
                 .average()
                 .orElse(0);
-    }
 
-    public long countLowStock() {
-        return products.stream()
-                .filter(p -> p.getStock() < 10)
+        model.addAttribute("averagePrice", avg);
+
+        long lowStockCount = products.stream()
+                .filter(p -> p.getStock() < 20)
                 .count();
+
+        model.addAttribute("lowStockCount", lowStockCount);
+
+        return "statistics";
     }
 }

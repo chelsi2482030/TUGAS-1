@@ -14,12 +14,12 @@ public class ProductService {
 
     public ProductService() {
         // Data dummy — nanti akan diganti database di Week JPA
-        products.add(new Product(1L, "Laptop ASUS", "Elektronik", 12_500_000, 15));
-        products.add(new Product(2L, "Mouse Logitech", "Elektronik", 350_000, 50));
-        products.add(new Product(3L, "Buku Java Programming", "Buku", 150_000, 30));
-        products.add(new Product(4L, "Kopi Arabica 250g", "Makanan", 85_000, 100));
-        products.add(new Product(5L, "Headphone Sony", "Elektronik", 1_200_000, 20));
-        products.add(new Product(6L, "Novel Laskar Pelangi", "Buku", 75_000, 45));
+        products.add(new Product(1L, "Laptop ASUS", "Elektronik", 12500000.0, 15));
+        products.add(new Product(2L, "Mouse Logitech", "Elektronik", 350000.0, 50));
+        products.add(new Product(3L, "Buku Java Programming", "Buku", 150000.0, 30));
+        products.add(new Product(4L, "Kopi Arabica 250g", "Makanan", 85000.0, 100));
+        products.add(new Product(5L, "Headphone Sony", "Elektronik", 1200000.0, 20));
+        products.add(new Product(6L, "Novel Laskar Pelangi", "Buku", 75000.0, 45));
     }
 
     public List<Product> findAll() {
